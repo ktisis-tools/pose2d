@@ -1,0 +1,17 @@
+[package]
+name = "pose2d"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+easy-imgui = "0.6.1"
+easy-imgui-renderer = "0.6.1"
+easy-imgui-window = "0.6.1"
+easy-imgui-sys = "0.6.1"
+serde_json = "1.0.120"
+serde = { version = "1.0.204", features = ["derive"] }
+image = { version = "0.25", features = ["png"] }
+quick-xml = "0.36.0"
+rfd = "0.14.1"
