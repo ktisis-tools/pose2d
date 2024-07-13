@@ -1,6 +1,8 @@
 ﻿use crate::schema::data::{SchemaBone, SchemaData, SchemaImage, SchemaView};
 use std::{io::Read, path::PathBuf};
 use quick_xml::{events::Event, errors::Error, Reader, Writer};
+use quick_xml::events::BytesText;
+use quick_xml::events::Event::Comment;
 
 pub trait SchemaSerializer {
 	fn serialize(&self) -> Result<Vec<u8>, Error>;
@@ -12,6 +14,14 @@ impl SchemaSerializer for SchemaData {
 		let mut buffer = Vec::new();
 		let mut writer = Writer::new_with_indent(&mut buffer, b'\t', 1);
 		writer.write_bom()?;
+		
+		writer.write_event(Comment(BytesText::new(
+			concat!(
+				"\n",
+				"\tThis file was generated automatically.\n",
+				"\thttps://github.com/ktisis-tools/pose2d\n"
+			)
+		)))?;
 		
 		writer.create_element("Views")
 			.write_inner_content(|inner| {
